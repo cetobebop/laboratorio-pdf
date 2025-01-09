@@ -11,7 +11,7 @@
           San Carlos
         </q-toolbar-title>
 
-        <button-dark-mode></button-dark-mode>
+        <!-- <button-dark-mode></button-dark-mode> -->
       </q-toolbar>
     </q-header>
 
