@@ -119,7 +119,7 @@ export const orinaMicro = {
     },
     {
       type: "text",
-      label: "Trichomona vaginalis",
+      label: "T. vaginalis",
       property: "trichomona_vaginalis",
       style: { width: "90%" },
     },

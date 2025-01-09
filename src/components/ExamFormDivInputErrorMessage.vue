@@ -1,7 +1,8 @@
 <template>
   <div class="container-error">
     <div class="error-absolute error-inactive" ref="error_container">
-      <q-icon name="error" /> {{ errorMsg }}
+      <q-icon name="error" />
+      {{ errorMsg }}
     </div>
   </div>
 </template>
@@ -91,6 +92,7 @@ function validate(value, rules, changeErrorBoolean = false) {
 <style scoped>
 .container-error {
   min-height: 20px;
+  font-size: 0.8em;
 }
 .error-absolute {
   padding: 0 3px;
