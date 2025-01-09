@@ -11,23 +11,20 @@
           v-model="internalValue"
         />
       </div>
-      <exam-form-div-input-error-message
-        :internalValue="internalValue"
-        :rules="rules"
-        :idForm="formName"
-        :id-input="idInput"
-        :validate-in-group="validateInGroup"
-        @validate-data="validation"
-      ></exam-form-div-input-error-message>
+      <div class="container-error">
+        <div class="error-absolute error-inactive" ref="error_container">
+          <q-icon name="error" /> {{ errorMsg }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import ExamFormDivInputErrorMessage from "./ExamFormDivInputErrorMessage.vue";
 import { ref, onMounted, watch } from "vue";
-import moment from "moment";
+import { validationHandler } from "src/utils/validationhandler";
 import { useValidatorInput } from "src/stores/inputValidator";
+import moment from "moment";
 
 const props = defineProps({
   label: String,
@@ -39,26 +36,16 @@ const props = defineProps({
   refs: Object,
   rules: { type: Array, default: () => [] },
   formName: String,
-  validateInGroup: { type: Boolean, default: false },
 });
 
 const validatorInput = useValidatorInput();
 
-const idInput = Math.random().toString();
+const errorMsg = ref("");
+const error_container = ref(null);
 
 const internalValue = defineModel("internal_value");
 
 const inputRef = ref(null);
-
-function validation({ status, msg }) {
-  if (status) {
-    inputRef.value.classList?.add("input-error-active");
-    inputRef.value.status = "bad";
-  } else {
-    inputRef.value.classList?.remove("input-error-active");
-    inputRef.value.status = "fine";
-  }
-}
 
 const addSpaces = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
@@ -71,11 +58,6 @@ const removeNonNumericAndComas = (num) => {
   );
 };
 onMounted(() => {
-  if (props.rules.length) {
-    validatorInput.setInputNodes(inputRef.value);
-    inputRef.value.status = "pending";
-  }
-
   if (inputRef.value.type === "text") {
     if (props.formatNumberComas) {
       inputRef.value.addEventListener("input", handleComas);
@@ -85,6 +67,22 @@ onMounted(() => {
         internalValue.value = handleChangeText(newValue);
       });
     }
+  }
+
+  if (props.rules.length) {
+    watch(internalValue, (newValue) => {
+      const validationHasAnError = validationHandler(newValue, props.rules);
+      if (validationHasAnError.status) {
+        errorMsg.value = validationHasAnError.msg;
+        error_container.value.classList.add("error-active");
+        inputRef.value.classList.add("input-error-active");
+        validatorInput.addErrorForm(props.formName);
+      } else {
+        error_container.value.classList.remove("error-active");
+        inputRef.value.classList.remove("input-error-active");
+        validatorInput.removeErrorForm(props.formName);
+      }
+    });
   }
 
   if (inputRef.value.type === "date") {
@@ -103,6 +101,24 @@ const handleComas = (event) =>
 <style scoped>
 #container {
   margin: 5px 0 0 0;
+}
+.container-error {
+  min-height: 20px;
+}
+.error-absolute {
+  padding: 0 3px;
+  font-size: 0.9em;
+  position: absolute;
+  z-index: -100;
+  color: #ff3333;
+  font-weight: 500;
+  top: 0;
+  transition: linear 0.2s;
+}
+
+.error-active {
+  top: 47px;
+  transition: linear 0.2s;
 }
 
 .input-error-active {
@@ -138,6 +154,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* input[type="number"] {
-  -moz-appearance: textfield;
-} */
+    -moz-appearance: textfield;
+  } */
 </style>
