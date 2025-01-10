@@ -11,7 +11,7 @@
           San Carlos
         </q-toolbar-title>
 
-        <!-- <button-dark-mode></button-dark-mode> -->
+        <button-delete-exam></button-delete-exam>
       </q-toolbar>
     </q-header>
 
@@ -22,5 +22,5 @@
 </template>
 
 <script setup>
-import ButtonDarkMode from "src/components/ButtonDarkMode.vue";
+import ButtonDeleteExam from "src/components/ButtonDeleteExam.vue";
 </script>

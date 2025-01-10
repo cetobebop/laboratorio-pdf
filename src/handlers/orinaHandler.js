@@ -11,6 +11,7 @@ export async function orinaHandler(
 ) {
   const orinaExist = validateOrinaExist(orinaUnformatted);
   if (!orinaExist) return;
+  console.log(orinaUnformatted, " orinaUnformatted");
   const orinaFormatted = orinaFormatter(orinaUnformatted);
   await addOrinaToPDF(pdfDoc, page, orinaFormatted, anchors, positionY);
 }

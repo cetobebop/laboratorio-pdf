@@ -14,6 +14,12 @@
 </template>
 
 <script setup>
+import { useExamStore } from "src/stores/exams";
+import { ref, watch, watchEffect } from "vue";
+
+const examStore = useExamStore();
+const channelGlobalDelete = ref(false);
+
 const props = defineProps({
   label: String,
   style: Object,
@@ -24,6 +30,14 @@ const props = defineProps({
 
 const internalValue = defineModel("internal_value");
 const selectValue = defineModel("select_value");
+
+watchEffect(() => {
+  channelGlobalDelete.value = examStore.getGlobalDelete;
+});
+
+watch(channelGlobalDelete, () => {
+  selectValue.value = "";
+});
 </script>
 
 <style scoped>

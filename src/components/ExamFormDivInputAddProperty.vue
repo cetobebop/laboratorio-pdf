@@ -25,6 +25,12 @@
 </template>
 
 <script setup>
+import { ref, watch, watchEffect } from "vue";
+import { useExamStore } from "src/stores/exams";
+const examStore = useExamStore();
+
+const channelGlobalDelete = ref(false);
+
 const props = defineProps({
   count: String,
   style: Object,
@@ -40,6 +46,14 @@ const [keyValue, modifiers] = defineModel("key_value", {
   },
 });
 const [value] = defineModel("value_value");
+
+watchEffect(() => {
+  channelGlobalDelete.value = examStore.getGlobalDelete;
+});
+
+watch(channelGlobalDelete, () => {
+  keyValue.value = "";
+});
 </script>
 
 <style scoped>

@@ -48,15 +48,10 @@
 import { useExamStore } from "src/stores/exams";
 import ExamFormDivInput from "./ExamFormDivInput.vue";
 import ExamFormDivInputSelectValue from "./ExamFormDivInputSelectValue.vue";
-import { onMounted, ref } from "vue";
 import { require } from "src/validations/require";
 import { requireDate } from "src/validations/requireDate";
 
 const examStore = useExamStore();
-
-onMounted(() => {
-  examStore.patientUnformatted["period"] = "Años";
-});
 
 const edadOptions = ["Años", "Meses"];
 

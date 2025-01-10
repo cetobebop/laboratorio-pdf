@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import moment from "moment";
 
 import { createPDFExam, newPage } from "src/utils/handlerPDFExam";
 import { obtainExamAnchors } from "src/utils/obtainAnchors";
@@ -10,13 +11,28 @@ import { patientHandler } from "src/handlers/patientHandler";
 
 export const useExamStore = defineStore("ExamStore", () => {
   const examUrl = ref(null);
-  const patientUnformatted = ref({});
+  const patientUnformatted = ref({
+    date: moment().format("YYYY-MM-DD"),
+    period: "Años",
+  });
   const hematologyUnformatted = ref({});
   const hecesUnformatted = ref({ macro: {}, micro: {} });
   const orinaUnformatted = ref({ fisicas: {}, quimicas: {}, micro: {} });
+  const globalDelete = ref(false);
 
   const positionY = ref(null);
   const page = ref(null);
+
+  function resetExamValues() {
+    patientUnformatted.value = {
+      date: moment().format("YYYY-MM-DD"),
+      period: "Años",
+    };
+    hematologyUnformatted.value = {};
+    hecesUnformatted.value = { macro: {}, micro: {} };
+    orinaUnformatted.value = { fisicas: {}, quimicas: {}, micro: {} };
+    globalDelete.value = !globalDelete.value;
+  }
 
   async function joinExam() {
     const pdfDoc = await createPDFExam();
@@ -66,12 +82,16 @@ export const useExamStore = defineStore("ExamStore", () => {
     examUrl.value = url;
   }
 
+  const getGlobalDelete = computed(() => globalDelete.value);
+
   return {
     patientUnformatted,
     orinaUnformatted,
     hecesUnformatted,
     hematologyUnformatted,
     examUrl,
+    getGlobalDelete,
     joinExam,
+    resetExamValues,
   };
 });

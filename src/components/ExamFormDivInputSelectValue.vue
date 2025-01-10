@@ -77,8 +77,10 @@ function limitValue(e) {
 function validation({ status }) {
   if (status) {
     inputRef.value?.classList?.add("input-error-active");
+    inputRef.value.status = "bad";
   } else {
     inputRef.value?.classList?.remove("input-error-active");
+    inputRef.value.status = "fine";
   }
 }
 

@@ -63,12 +63,7 @@ function validate(value, rules, changeErrorBoolean = false) {
   if (status) {
     errorMsg.value = msg;
     error_container.value.classList.add("error-active");
-    console.log(
-      validatorInput.getListformWithInputErrors
-        .get(props.idForm)
-        ?.has(props.idInput),
-      " epa"
-    );
+
     if (
       !validatorInput.getListformWithInputErrors
         .get(props.idForm)

@@ -26,7 +26,6 @@
 <script setup>
 import ExamFormDivInputErrorMessage from "./ExamFormDivInputErrorMessage.vue";
 import { ref, onMounted, watch } from "vue";
-import moment from "moment";
 import { useValidatorInput } from "src/stores/inputValidator";
 
 const props = defineProps({
@@ -85,10 +84,6 @@ onMounted(() => {
         internalValue.value = handleChangeText(newValue);
       });
     }
-  }
-
-  if (inputRef.value.type === "date") {
-    internalValue.value = moment().format("YYYY-MM-DD");
   }
 });
 
