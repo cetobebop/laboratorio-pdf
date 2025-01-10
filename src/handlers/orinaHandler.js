@@ -10,9 +10,10 @@ export async function orinaHandler(
   anchors,
   positionY
 ) {
-  const orinaExist = validateOrinaExist(orinaUnformatted);
   orinaUnformatted.micro = removeFalsyProperties(orinaUnformatted.micro);
   orinaUnformatted.quimicas = removeFalsyProperties(orinaUnformatted.quimicas);
+
+  const orinaExist = validateOrinaExist(orinaUnformatted);
   if (!orinaExist) return;
   console.log(orinaUnformatted, " orinaUnformatted");
   const orinaFormatted = orinaFormatter(orinaUnformatted);
