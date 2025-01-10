@@ -23,7 +23,6 @@ export const useValidatorInput = defineStore("validator", () => {
 
       const interval = setInterval(() => {
         nodeStatus = arrayNodes.map((e) => e.status);
-        console.log(nodeStatus, " nodeStatus");
         if (nodeStatus.includes("bad")) {
           status = "bad";
           clearInterval(interval);
@@ -43,7 +42,6 @@ export const useValidatorInput = defineStore("validator", () => {
 
   function changeButtonGlobalValidationBoolean() {
     buttonGlobalValidationBoolean.value = !buttonGlobalValidationBoolean.value;
-    console.log(globalErrorStatus.value, " globalerror");
   }
 
   const getLastErrorForm = computed(() => lastErrorForm.value);

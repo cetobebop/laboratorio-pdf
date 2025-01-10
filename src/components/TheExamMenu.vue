@@ -37,15 +37,15 @@
       color="primary"
       text-color="white"
       label="Crear"
-      class="q-py-sm"
+      class="xs:q-py-md q-py-sm"
       @click="onClick"
     ></q-btn>
     <q-btn
       :disable="!Boolean(examStore.examUrl)"
-      color="secondary"
+      color="dark"
       text-color="white"
       label="Ver"
-      class="q-py-sm q-my-xs"
+      class="xs:q-py-md q-py-sm q-my-xs"
       @click="onClickVer"
     ></q-btn>
   </div>

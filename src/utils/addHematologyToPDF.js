@@ -37,15 +37,6 @@ export async function addHematologyToPDF(
 
   positionY.value -= 30;
 
-  if (hematology?.left && !hematology?.left?.chcm)
-    hematology.left = injectProperty(
-      hematology.left,
-      ["CHCM", { value: " ", unit: "g%" }],
-      2
-    );
-
-  if (!hematology?.center) fillOutExam(hematology, 5, fillHematologyData);
-
   let i;
   for (let key in hematology) {
     let count = 0;

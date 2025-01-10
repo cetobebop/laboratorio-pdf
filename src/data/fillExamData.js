@@ -1,5 +1,5 @@
 export const fillHematologyData = {
-  left: ["chcm", "leucocitos", "plaquetas"],
+  left: ["chcm", "leucocitos", "plaquetas", "hemoglobina", "hematocrito"],
   right: [
     "linfocitos",
     "cayado",
