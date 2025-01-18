@@ -46,6 +46,8 @@ export function hematologyFormatter(hematology) {
       5 + countLeft
     );
 
+    console.log(right, " right");
+
     hematology = { ...left, ...right };
     console.log(hematology);
   }

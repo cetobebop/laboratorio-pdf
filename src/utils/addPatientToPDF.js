@@ -72,7 +72,6 @@ export async function addPatientToPDF(
     font: fontFamilyNormal,
   });
 
-  console.log(patient.patient);
   page.value.drawText(
     `Paciente: ${!patient.patient.name ? "" : patient.patient.name}`,
     {
