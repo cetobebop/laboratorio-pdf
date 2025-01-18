@@ -4,10 +4,10 @@ export const hematologySchema = {
   chcm: undefined,
   leucocitos: undefined,
   plaquetas: undefined,
-  eosinofilos: undefined,
   neutrofilos: undefined,
   linfocitos: undefined,
+  eosinofilos: undefined,
   monocitos: undefined,
-  blastos: undefined,
   cayado: undefined,
+  blastos: undefined,
 };
